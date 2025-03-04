@@ -175,3 +175,4 @@ cython_debug/
 /local_results/
 /src/local_evaluation.py
 /.venv/
+/.flake8
