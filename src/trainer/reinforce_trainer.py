@@ -25,7 +25,7 @@ class REINFORCETrainer(Trainer):
         n_steps: int,
         discount_factor: float,
         learning_rate: float,
-        optimizer_class,
+        optimizer_class: type[torch.optim.Optimizer],
         info_frequency: int = 100,
         update_interval_: int = update_interval,
         save_interval_: int = save_interval,
@@ -50,7 +50,7 @@ class REINFORCETrainer(Trainer):
         self.update_interval = update_interval_
         self.save_interval = save_interval_
 
-    def train(self):
+    def train(self) -> tuple[torch.Tensor, np.ndarray, np.ndarray]:
         total_rewards = []
         total_lengths = []
         for step in tqdm(range(self.n_steps)):
@@ -108,18 +108,19 @@ class REINFORCETrainer(Trainer):
         self.env.close()
         return last_policy, np.array(total_rewards), np.array(total_lengths)
 
-    def calculate_loss(self, returns, log_probs):
+    def calculate_loss(self, returns: torch.Tensor, log_probs: torch.Tensor) -> torch.Tensor:
         # log_probs = torch.stack(log_probs)
         loss = -(log_probs * returns).sum()
         return loss
 
-    def calculate_returns(self, rewards):
+    def calculate_returns(self, rewards: torch.Tensor) -> torch.Tensor:
         returns = []
-        current_return = 0
+        current_return = 0.0
+        r: float
         for r in reversed(rewards):
             current_return = r + self.gamma * current_return
             returns.append(current_return)
-        returns = list(reversed(returns))
-        returns = torch.tensor(returns, dtype=torch.float32, device=self.device)
+        returns: list[float] = list(reversed(returns))
+        returns: torch.Tensor = torch.tensor(returns, dtype=torch.float32, device=self.device)
         # returns = (returns - returns.mean()) / (returns.std() + 1e-8)
         return returns

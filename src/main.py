@@ -22,8 +22,7 @@ from config import (
 )
 from policy import FCPolicy
 from trainer import REINFORCETrainer
-from visualizer import Visualizer
-from visualizer.basic import plot_comparison
+from visualizer import Visualizer, plot_comparison
 
 if __name__ == "__main__":
     all_rewards = []
