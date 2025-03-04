@@ -20,7 +20,6 @@ setup(
     # metadata
     name='LunarLander',
     version="0.1",
-    setup_requires=['swig'],
     license='MIT',
     author='The Great Five',
     author_email="bair1209@gmail.com",

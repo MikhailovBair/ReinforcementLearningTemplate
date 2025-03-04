@@ -1,4 +1,7 @@
-gymnasium[box2d]~=1.1.0
+swig
+box2d
+pygame
+gymnasium~=1.1.0
 tqdm~=4.67.1
 setuptools~=75.8.0
 matplotlib~=3.10.1
