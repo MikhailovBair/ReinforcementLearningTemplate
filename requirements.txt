@@ -1,0 +1,7 @@
+gymnasium[box2d]~=1.1.0
+tqdm~=4.67.1
+setuptools~=75.8.0
+matplotlib~=3.10.1
+seaborn~=0.13.2
+numpy~=2.2.3
+torch~=2.6.0+cpu
